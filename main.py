@@ -12,6 +12,10 @@ TEXT = (
 
 
 def main() -> None:
+    # The gate accepts 1-280 Unicode code points: fail loudly instead of
+    # ever writing an entry the scorer would mark invalid.
+    if not 1 <= len(TEXT) <= 280:
+        raise SystemExit(f"entry text must be 1-280 characters, got {len(TEXT)}")
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(TEXT)
